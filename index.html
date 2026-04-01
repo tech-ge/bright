@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🌸🌸</title>
+    <title>Surprise.exe</title>
     <style>
+        /* ===== WINDOWS 2000 / Microsoft Classic UI ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -20,984 +23,1095 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 100%);
-            color: white;
+            font-family: 'Tahoma', 'MS Sans Serif', 'Arial', sans-serif;
+            font-size: 11px;
+            background-color: #008080; /* Classic Win2k teal desktop */
+            color: #000000;
+            cursor: default;
         }
 
-        /* Background image */
+        /* ===== DESKTOP WALLPAPER TILING ===== */
+        .desktop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #008080;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0,0,0,0.04) 1px,
+                    rgba(0,0,0,0.04) 2px
+                );
+            z-index: 0;
+        }
+
+        /* ===== TASKBAR ===== */
+        .taskbar {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            height: 30px;
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            box-shadow: inset 0 1px 0 #ffffff;
+        }
+
+        .start-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 2px;
+            padding: 2px 8px 2px 6px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            height: 22px;
+            color: #000;
+        }
+
+        .start-btn:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        .start-logo {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #ff0000 0%, #ff0000 25%, #00ff00 25%, #00ff00 50%, #0000ff 50%, #0000ff 75%, #ffff00 75%);
+            border-radius: 1px;
+            flex-shrink: 0;
+        }
+
+        .taskbar-divider {
+            width: 2px;
+            height: 20px;
+            background: #808080;
+            border-right: 1px solid #ffffff;
+            margin: 0 4px;
+        }
+
+        .taskbar-task {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            height: 22px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            font-family: inherit;
+            font-size: 11px;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+        }
+
+        .taskbar-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding-right: 6px;
+        }
+
+        .tray-clock {
+            font-family: inherit;
+            font-size: 11px;
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 3px 8px;
+            background: #c0c0c0;
+            color: #000;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* ===== WINDOW BASE ===== */
+        .win-window {
+            position: absolute;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            box-shadow: 2px 2px 0 #000000;
+            z-index: 50;
+        }
+
+        /* ===== TITLE BAR ===== */
+        .win-titlebar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1px 2px 1px 4px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .win-titlebar-title {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .win-titlebar-icon {
+            font-size: 12px;
+        }
+
+        .win-titlebar-btns {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .win-btn {
+            width: 14px;
+            height: 13px;
+            background: #c0c0c0;
+            border: 1px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #000;
+            line-height: 1;
+            font-family: 'Marlett', 'Wingdings', monospace;
+            font-weight: bold;
+        }
+
+        .win-btn:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+
+        /* ===== WINDOW CONTENT ===== */
+        .win-content {
+            padding: 8px;
+        }
+
+        /* ===== INSET / SUNKEN PANEL ===== */
+        .win-inset {
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+            padding: 6px;
+        }
+
+        .win-inset-gray {
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #c0c0c0;
+            padding: 6px;
+        }
+
+        /* ===== CLASSIC BUTTON ===== */
+        .win-classic-btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 4px 16px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            color: #000000;
+            min-width: 75px;
+            height: 23px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-weight: normal;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .win-classic-btn:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 5px 15px 3px 17px;
+        }
+
+        .win-classic-btn:focus {
+            outline: 1px dotted #000000;
+            outline-offset: -4px;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .win-progress-wrap {
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            background: #ffffff;
+            height: 16px;
+            overflow: hidden;
+        }
+
+        .win-progress-bar {
+            height: 100%;
+            background: #000080;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .win-progress-block {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #000080;
+            border-right: 2px solid #c0c0c0;
+            flex-shrink: 0;
+        }
+
+        /* ===== SEPARATOR LINE ===== */
+        .win-sep {
+            border: none;
+            border-top: 1px solid #808080;
+            border-bottom: 1px solid #ffffff;
+            margin: 6px 0;
+        }
+
+        /* ===== BACKGROUND IMAGE OVERLAY ===== */
         .bg-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: url('b80c8a4b2fff4744b3460b7ceadb61cc.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 1.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            z-index: 5;
+            transition: opacity 1.4s ease;
+            z-index: 1;
             pointer-events: none;
         }
 
         .bg-overlay.active {
-            opacity: 1;
+            opacity: 0.35;
         }
 
-        /* main container for centering */
-        .container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
-            pointer-events: auto;
-            transition: opacity 0.6s ease;
-        }
-
-        /* Flower Button */
-        .flower-btn {
-            position: relative;
-            padding: 14px 32px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 60px;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%);
-            color: #5e2a3e;
-            cursor: pointer;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.4), 0 0 0 2px rgba(255, 220, 150, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: inherit;
-            letter-spacing: 1px;
-            overflow: hidden;
-            z-index: 25;
-        }
-
-        .flower-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* flower burst particles */
-        .flower-particle {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: radial-gradient(circle, #ffb7c5, #ff6f91);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 30;
-            box-shadow: 0 0 6px #ffb7c5;
-            animation: bloomFloat 1.2s ease-out forwards;
-        }
-
-        @keyframes bloomFloat {
-            0% {
-                transform: scale(0) rotate(0deg);
-                opacity: 1;
-            }
-            40% {
-                transform: scale(1.2) rotate(120deg);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(2.5) rotate(240deg);
-                opacity: 0;
-            }
-        }
-
-        /* Message Card */
-        .message-card {
-            position: absolute;
-            text-align: center;
-            width: 88%;
-            max-width: 550px;
+        /* ===== MAIN LAUNCHER WINDOW ===== */
+        #launcherWindow {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(10, 10, 20, 0.94);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 2rem 1.8rem;
-            border: 2px solid rgba(255, 105, 130, 0.6);
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
-            z-index: 35;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            pointer-events: none;
+            width: 300px;
+            z-index: 60;
         }
 
-        .message-card.visible {
-            opacity: 1;
-            pointer-events: auto;
+        /* ===== MESSAGE WINDOW ===== */
+        #messageWindow {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            max-width: 90vw;
+            z-index: 70;
+            display: none;
         }
 
-        .message-card.hidden {
-            opacity: 0 !important;
-            pointer-events: none;
+        .error-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
         }
 
-        .error-text {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffb347, #ff6b6b);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .message-body {
-            font-size: 1.3rem;
+        .msg-text {
+            font-size: 11px;
             line-height: 1.6;
-            color: #ffdfc5;
-            margin-top: 10px;
+            color: #000;
         }
 
         .highlight-name {
-            font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(145deg, #ffb347, #ff6f61);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            border-bottom: 3px dashed #ff8c8c;
-            padding: 0 6px;
-            display: inline-block;
+            color: #000080;
         }
 
-        /* Ready Button */
-        .ready-btn {
-            margin-top: 25px;
-            padding: 12px 32px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 100, 100, 0.4);
-            font-family: inherit;
-        }
-
-        .ready-btn:active {
-            transform: scale(0.96);
-        }
-
-        /* GIFT SELECTION SECTION */
-        .gift-section {
-            position: absolute;
-            bottom: 5%;
+        /* ===== GIFT WINDOW ===== */
+        #giftWindow {
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%) scale(0.9);
-            width: 94%;
-            max-width: 580px;
-            background: linear-gradient(135deg, rgba(30, 20, 40, 0.98), rgba(20, 15, 30, 0.98));
-            backdrop-filter: blur(20px);
-            border-radius: 50px;
-            padding: 1.2rem 1rem;
-            z-index: 45;
-            opacity: 0;
-            transition: opacity 0.8s ease, transform 0.5s ease;
-            pointer-events: none;
-            border: 2px solid rgba(255, 180, 100, 0.7);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translate(-50%, -60%);
+            width: 440px;
+            max-width: 95vw;
+            z-index: 80;
+            display: none;
         }
 
-        .gift-section.active {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-            pointer-events: auto;
-        }
-
-        .gift-title {
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #FFD966, #FF9966);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: 2px;
-        }
-
-        .gift-container {
+        .gift-grid {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
             flex-wrap: wrap;
-            padding: 0.5rem;
+            gap: 6px;
+            justify-content: center;
+            padding: 4px;
         }
 
-        .gift-card {
-            background: rgba(255, 245, 220, 0.18);
-            border-radius: 28px;
-            padding: 0.9rem 0.7rem;
+        .gift-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 6px 6px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-            width: 95px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,200,150,0.6);
-            -webkit-tap-highlight-color: transparent;
+            width: 90px;
+            border: 2px solid transparent;
+            background: transparent;
         }
 
-        .gift-card:active {
-            transform: scale(0.95);
-            background: rgba(255, 220, 150, 0.45);
+        .gift-item:hover {
+            border-color: #000080;
+            background: #000080;
+        }
+
+        .gift-item:hover .gift-item-label {
+            color: #ffffff;
+            background: #000080;
+        }
+
+        .gift-item:hover .gift-img {
+            filter: none;
         }
 
         .gift-img {
-            width: 60px;
-            height: 60px;
+            width: 48px;
+            height: 48px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            image-rendering: pixelated;
         }
 
-        .gift-label {
-            margin-top: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #FFE4B5;
+        .gift-item-label {
+            font-size: 10px;
+            color: #000;
+            text-align: center;
+            background: transparent;
+            padding: 1px 3px;
+            white-space: nowrap;
         }
 
-        /* April Fool's Surprise Message */
-        .fool-message {
+        /* ===== MODAL (Confirmation) ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            z-index: 150;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-win {
+            width: 320px;
+            max-width: 90vw;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 12px;
+        }
+
+        .modal-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .modal-text {
+            font-size: 11px;
+            line-height: 1.7;
+            color: #000;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            padding: 8px 12px 12px;
+        }
+
+        /* ===== APRIL FOOLS POPUP ===== */
+        #foolWindow {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #000000ea;
-            backdrop-filter: blur(20px);
-            padding: 2rem 1.5rem;
-            border-radius: 60px;
-            text-align: center;
+            width: 340px;
+            max-width: 92vw;
             z-index: 200;
-            border: 3px solid #ffaa44;
-            box-shadow: 0 0 60px rgba(255,100,0,0.9);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-            width: 90%;
-            max-width: 400px;
+            display: none;
         }
 
-        .fool-message.show {
-            opacity: 1;
-        }
-
-        .fool-message div:first-child {
-            font-size: 3rem;
-        }
-        .fool-message div:nth-child(2) {
-            font-size: 1.2rem;
-            margin-top: 0.8rem;
-        }
-        .fool-message div:nth-child(3) {
-            font-size: 1rem;
-            margin-top: 0.6rem;
-        }
-        .fool-message div:last-child {
-            font-size: 0.95rem;
-            margin-top: 0.8rem;
-        }
-
-        /* I Love You Message */
-        .love-message {
+        /* ===== LOVE MESSAGE WINDOW ===== */
+        #loveWindow {
             position: fixed;
-            top: 60%;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, rgba(255, 80, 100, 0.96), rgba(255, 50, 80, 0.96));
-            backdrop-filter: blur(20px);
-            padding: 2.5rem 2rem;
-            border-radius: 70px;
+            transform: translate(-50%, -55%);
+            width: 360px;
+            max-width: 92vw;
+            z-index: 220;
+            display: none;
+        }
+
+        .love-content {
             text-align: center;
-            z-index: 250;
-            border: 4px solid #ffdd99;
-            box-shadow: 0 0 100px rgba(255, 100, 100, 0.9);
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            pointer-events: auto;
-            width: 85%;
-            max-width: 450px;
+            padding: 16px 12px;
         }
 
-        .love-message.show {
-            opacity: 1;
-        }
-
-        .love-message .heart-icon {
-            font-size: 4rem;
+        .love-heart {
+            font-size: 36px;
             animation: heartbeat 1s ease-in-out infinite;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        .love-message h1 {
-            font-size: 2.5rem;
-            margin: 0.8rem 0;
-            color: #fff;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        .love-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
         }
 
-        .love-message p {
-            font-size: 1.2rem;
-            color: #fff0d0;
-            margin-top: 0.5rem;
+        .love-sub {
+            font-size: 11px;
+            color: #000;
+            line-height: 1.7;
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.15); }
         }
 
-        /* Navigation Blocker - Only appears when love message shows */
+        /* ===== NAV BLOCKER ===== */
         .nav-blocker {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 249;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 210;
             display: none;
-            pointer-events: auto;
+            background: rgba(0,0,0,0.3);
         }
 
         .nav-blocker.active {
             display: block;
         }
 
-        /* Confirmation Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+        /* ===== DESKTOP ICONS ===== */
+        .desktop-icon {
+            position: absolute;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            gap: 3px;
+            padding: 4px;
+            width: 68px;
+            cursor: default;
+            z-index: 10;
         }
 
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
+        .desktop-icon img,
+        .desktop-icon .icon-img {
+            width: 32px;
+            height: 32px;
+            image-rendering: pixelated;
         }
 
-        .modal-box {
-            background: linear-gradient(145deg, #2a1e2e, #1a1220);
-            border-radius: 48px;
-            padding: 1.8rem 1.5rem;
-            max-width: 340px;
-            width: 85%;
+        .desktop-icon-label {
+            font-size: 11px;
+            color: #ffffff;
             text-align: center;
-            border: 2px solid #ff9966;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            text-shadow: 1px 1px 2px #000000;
+            line-height: 1.3;
+            word-break: break-word;
         }
 
-        .modal-overlay.show .modal-box {
-            transform: scale(1);
+        /* ===== FLOWER PARTICLES ===== */
+        .flower-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+            animation: bloomFloat 1s ease-out forwards;
         }
 
-        .modal-box h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            color: #ffbb88;
+        @keyframes bloomFloat {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(120deg); opacity: 0.8; }
+            100% { transform: scale(2.5) rotate(240deg); opacity: 0; }
         }
 
-        .modal-gift-preview {
-            width: 80px;
-            margin: 0.6rem auto;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-
-        .modal-btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1rem;
-        }
-
-        .confirm-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-            color: white;
-        }
-
-        .cancel-btn {
-            background: #3a2a3a;
-            color: #ffccaa;
-            border: 1px solid #ffaa77;
-        }
-
-        /* Balloons */
+        /* ===== BALLOONS ===== */
         .balloon {
             position: absolute;
             bottom: -120px;
-            width: 40px;
-            height: 56px;
+            width: 28px;
+            height: 38px;
             border-radius: 50%;
             animation: floatUp 7s linear forwards;
-            box-shadow: inset -3px -3px 0px rgba(0,0,0,0.1);
-            z-index: 12;
+            z-index: 15;
             pointer-events: none;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-130vh) rotate(20deg); opacity: 0; }
+            100% { transform: translateY(-130vh) rotate(15deg); opacity: 0; }
         }
 
-        .floating-petal {
-            position: absolute;
-            pointer-events: none;
-            z-index: 15;
-            font-size: 22px;
-            animation: petalDrift 4.5s linear forwards;
+        /* ===== HOURGLASS CURSOR on loading ===== */
+        .loading * { cursor: wait !important; }
+
+        /* ===== STATUS BAR ===== */
+        .win-statusbar {
+            display: flex;
+            border-top: 1px solid #808080;
+            padding: 2px 4px;
+            gap: 4px;
         }
 
-        @keyframes petalDrift {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        .win-statusbar-cell {
+            border: 1px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            padding: 1px 6px;
+            font-size: 11px;
+            color: #000;
+            flex: 1;
         }
 
-        /* Stickers - FIXED DISPLAY */
-        .sticker {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s ease;
-            z-index: 25;
-            pointer-events: none;
+        /* ===== SCROLLBAR STYLE ===== */
+        ::-webkit-scrollbar { width: 16px; }
+        ::-webkit-scrollbar-track { background: #c0c0c0; }
+        ::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
         }
 
-        /* Left Sticker - Larger, NO animation */
-        #leftSticker { 
-            left: 2%; 
-            bottom: 6%; 
-            width: 95px;
-            height: auto;
-            transform: rotate(-8deg);
-        }
+        /* ===== DIALOG ICON (error/info/question) ===== */
+        .dlg-error   { color: #ff0000; font-size: 32px; }
+        .dlg-info    { color: #000080; font-size: 32px; }
+        .dlg-question { color: #000080; font-size: 32px; }
 
-        /* Right Sticker - Larger with expand/rotate animation */
-        #rightSticker {
-            right: 2%;
-            top: 10%;
-            width: 200px;
-            height: auto;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
-            animation: expandRotate 2s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        @keyframes expandRotate {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-            
-            50% {
-                transform: scale(1.35) rotate(12deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        .sticker.visible {
-            opacity: 1;
-        }
-
-        .fade-out { opacity: 0; pointer-events: none; }
-
-        @keyframes gentleWobble {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 480px) {
-            .gift-card { width: 80px; padding: 0.6rem 0.4rem; }
-            .gift-img { width: 50px; height: 50px; }
-            .gift-label { font-size: 0.65rem; }
-            .gift-title { font-size: 1.3rem; }
-            .error-text { font-size: 1.8rem; }
-            .message-body { font-size: 1.1rem; }
-            .highlight-name { font-size: 1.5rem; }
-            .flower-btn { padding: 12px 28px; font-size: 1.2rem; }
-            #rightSticker { width: 200px; top: 8%; }
-            #leftSticker { width: 100px; }
-            .love-message h1 { font-size: 1.8rem; }
-            .love-message .heart-icon { font-size: 3rem; }
+            #messageWindow { width: 90vw; }
+            #giftWindow { width: 95vw; transform: translate(-50%, -55%); }
+            .gift-item { width: 76px; }
+            .gift-img { width: 40px; height: 40px; }
         }
 
         @media (min-width: 768px) {
-            .error-text { font-size: 2.6rem; }
-            .message-body { font-size: 1.5rem; }
-            .highlight-name { font-size: 2rem; }
-            #rightSticker { width: 120px; top: 12%; }
-            #leftSticker { width: 110px; }
+            #launcherWindow { width: 320px; }
+            #messageWindow { width: 440px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Desktop -->
+<div class="desktop" id="desktop"></div>
+
+<!-- Background image overlay -->
 <div id="bgOverlay" class="bg-overlay"></div>
 
-<div class="container" id="btnContainer">
-    <button class="flower-btn" id="magicButton">
-        ✿ Click Me ✿
-    </button>
+<!-- Desktop Icons -->
+<div class="desktop-icon" style="top:20px; left:12px;">
+    <div class="icon-img" style="width:32px;height:32px;background:linear-gradient(135deg,#c0c0c0,#808080);border:1px solid #fff;display:flex;align-items:center;justify-content:center;font-size:20px;">🌸</div>
+    <div class="desktop-icon-label">Surprise.exe</div>
+</div>
+<div class="desktop-icon" style="top:90px; left:12px;">
+    <div class="icon-img" style="width:32px;height:32px;background:#c0c0c0;border:1px solid #808080;display:flex;align-items:center;justify-content:center;font-size:18px;">🗑️</div>
+    <div class="desktop-icon-label">Recycle Bin</div>
 </div>
 
-<!-- Message Card with Ready Button -->
-<div id="messageBox" class="message-card">
-    <div class="error-text">⚠️ ERROR 404 ⚠️</div>
-    <div class="message-body">
-        Too much personality detected in one user.<br>
-        System cannot process <span id="dynamicName" class="highlight-name"></span>.<br>
-        Please reduce awesomeness and try again 😭💖
-    </div>
-    <button id="readyButton" class="ready-btn">🎁 Are You Ready for Gift? 🎁</button>
-</div>
-
-<!-- GIFT SELECTION SECTION -->
-<div id="giftSelection" class="gift-section">
-    <div class="gift-title">🎁 SELECT A GIFT 🎁</div>
-    <div class="gift-container">
-        <div class="gift-card" data-gift="diamond">
-            <img class="gift-img" src="ring.jpeg" alt="Diamond Ring" onerror="this.src='https://i.imgur.com/5qDqY8f.png'">
-            <div class="gift-label">💎 Diamond Ring</div>
+<!-- ========== LAUNCHER WINDOW ========== -->
+<div id="launcherWindow" class="win-window">
+    <div class="win-titlebar">
+        <div class="win-titlebar-title">
+            <span class="win-titlebar-icon">🌸</span>
+            <span>Surprise.exe</span>
         </div>
-        <div class="gift-card" data-gift="vacation">
-            <img class="gift-img" src="flight.jpeg" alt="Vacation" onerror="this.src='https://i.imgur.com/KyZ9hYQ.png'">
-            <div class="gift-label">✈️ Paradise Trip</div>
-        </div>
-        <div class="gift-card" data-gift="chocolate">
-            <img class="gift-img" src="chocolate.jpeg" alt="Chocolate" onerror="this.src='https://i.imgur.com/Lz7kLpP.png'">
-            <div class="gift-label">🍫 Luxury Chocolates</div>
-        </div>
-        <div class="gift-card" data-gift="surprise">
-            <img class="gift-img" src="https://cdn-icons-png.flaticon.com/512/1998/1998592.png" alt="Mystery Box" onerror="this.src='https://i.imgur.com/JlP2kBV.png'">
-            <div class="gift-label">🎁 Mystery Box</div>
+        <div class="win-titlebar-btns">
+            <div class="win-btn" title="Minimize">_</div>
+            <div class="win-btn" title="Maximize">□</div>
+            <div class="win-btn" style="font-weight:bold;" title="Close">✕</div>
         </div>
     </div>
+    <div class="win-content">
+        <div class="win-inset" style="margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:10px;padding:4px 2px;">
+                <div style="font-size:36px;line-height:1;flex-shrink:0;">🌸</div>
+                <div>
+                    <div style="font-weight:bold;font-size:12px;margin-bottom:3px;">Special Surprise</div>
+                    <div style="font-size:11px;color:#444;line-height:1.5;">A new message has arrived for you.<br>Click below to open it.</div>
+                </div>
+            </div>
+        </div>
+        <hr class="win-sep">
+        <div style="display:flex;gap:6px;justify-content:center;padding:4px 0 2px;">
+            <button class="win-classic-btn" id="magicButton">
+                ✿ &nbsp;Open
+            </button>
+            <button class="win-classic-btn" onclick="return false;">
+                Cancel
+            </button>
+        </div>
+    </div>
+    <div class="win-statusbar">
+        <div class="win-statusbar-cell">Ready</div>
+        <div class="win-statusbar-cell" style="flex:0 0 80px; text-align:center;">1 object</div>
+    </div>
 </div>
 
-<img id="leftSticker" class="sticker" src="images.png" alt="cute sticker" onerror="this.src='https://i.imgur.com/OdL0XPt.png'">
-<img id="rightSticker" class="sticker" src="images1.png" alt="cute sticker" onerror="this.src='https://i.imgur.com/OdL0XPt.png'">
+<!-- ========== MESSAGE WINDOW (Error 404) ========== -->
+<div id="messageWindow" class="win-window">
+    <div class="win-titlebar">
+        <div class="win-titlebar-title">
+            <span class="win-titlebar-icon">⚠️</span>
+            <span>System Error — Surprise.exe</span>
+        </div>
+        <div class="win-titlebar-btns">
+            <div class="win-btn" title="Minimize">_</div>
+            <div class="win-btn" title="Maximize">□</div>
+            <div class="win-btn" style="font-weight:bold;" title="Close">✕</div>
+        </div>
+    </div>
+    <div class="win-content">
+        <div class="modal-body" style="padding:6px 0 10px;">
+            <span class="dlg-error">⚠️</span>
+            <div class="msg-text">
+                <strong style="font-size:12px;display:block;margin-bottom:6px;">ERROR 404 — Personality Overflow</strong>
+                Too much personality detected in one user.<br>
+                System cannot process&nbsp;<span id="dynamicName" class="highlight-name"></span>.<br>
+                Please reduce awesomeness and try again.
+            </div>
+        </div>
+        <hr class="win-sep">
+        <div style="display:flex;gap:6px;justify-content:center;padding:2px 0 4px;">
+            <button class="win-classic-btn" id="readyButton">
+                🎁 &nbsp;Are You Ready for Gift?
+            </button>
+        </div>
+    </div>
+</div>
 
-<!-- Navigation Blocker - Only appears when love message shows -->
+<!-- ========== GIFT SELECTION WINDOW ========== -->
+<div id="giftWindow" class="win-window">
+    <div class="win-titlebar">
+        <div class="win-titlebar-title">
+            <span class="win-titlebar-icon">🎁</span>
+            <span>Gift Selection — Please Choose</span>
+        </div>
+        <div class="win-titlebar-btns">
+            <div class="win-btn" title="Minimize">_</div>
+            <div class="win-btn" title="Maximize">□</div>
+            <div class="win-btn" style="font-weight:bold;">✕</div>
+        </div>
+    </div>
+    <div class="win-content">
+        <div class="win-inset-gray" style="margin-bottom:8px;">
+            <div style="font-size:11px;margin-bottom:6px;">Select a gift from the list below and click <strong>OK</strong> to confirm.</div>
+            <div class="win-inset" style="background:#fff;min-height:120px;">
+                <div class="gift-grid">
+                    <div class="gift-item" data-gift="diamond">
+                        <img class="gift-img" src="ring.jpeg" alt="Diamond Ring" onerror="this.src='https://i.imgur.com/5qDqY8f.png'">
+                        <div class="gift-item-label">💎 Diamond Ring</div>
+                    </div>
+                    <div class="gift-item" data-gift="vacation">
+                        <img class="gift-img" src="flight.jpeg" alt="Vacation" onerror="this.src='https://i.imgur.com/KyZ9hYQ.png'">
+                        <div class="gift-item-label">✈️ Paradise Trip</div>
+                    </div>
+                    <div class="gift-item" data-gift="chocolate">
+                        <img class="gift-img" src="chocolate.jpeg" alt="Chocolate" onerror="this.src='https://i.imgur.com/Lz7kLpP.png'">
+                        <div class="gift-item-label">🍫 Luxury Chocolates</div>
+                    </div>
+                    <div class="gift-item" data-gift="surprise">
+                        <img class="gift-img" src="https://cdn-icons-png.flaticon.com/512/1998/1998592.png" alt="Mystery Box" onerror="this.src='https://i.imgur.com/JlP2kBV.png'">
+                        <div class="gift-item-label">🎁 Mystery Box</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="win-sep">
+        <div style="display:flex;gap:6px;justify-content:flex-end;padding:2px 0 2px;">
+            <button class="win-classic-btn" id="giftOkBtn">OK</button>
+            <button class="win-classic-btn" id="giftCancelBtn">Cancel</button>
+        </div>
+    </div>
+    <div class="win-statusbar">
+        <div class="win-statusbar-cell">4 items</div>
+        <div class="win-statusbar-cell" style="flex:0 0 120px;text-align:center;">0 item(s) selected</div>
+    </div>
+</div>
+
+<!-- ========== CONFIRMATION MODAL ========== -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="win-window modal-win">
+        <div class="win-titlebar">
+            <div class="win-titlebar-title">
+                <span class="win-titlebar-icon">❓</span>
+                <span>Confirm Selection</span>
+            </div>
+            <div class="win-titlebar-btns">
+                <div class="win-btn" style="font-weight:bold;">✕</div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <span class="dlg-question">❓</span>
+            <div class="modal-text">
+                <strong id="modalGiftText">Are you sure you want this gift?</strong><br>
+                <span style="font-size:10px;color:#555;">Think twice... 😈</span>
+            </div>
+        </div>
+        <hr class="win-sep" style="margin: 0 8px;">
+        <div class="modal-btns">
+            <button class="win-classic-btn" id="confirmBtn">YES — Open It!</button>
+            <button class="win-classic-btn" id="cancelBtn">Wait, No!</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== APRIL FOOL'S WINDOW ========== -->
+<div id="foolWindow" class="win-window">
+    <div class="win-titlebar" style="background:linear-gradient(to right,#800000,#c00000);">
+        <div class="win-titlebar-title">
+            <span class="win-titlebar-icon">🤡</span>
+            <span>APRIL FOOL — System Alert</span>
+        </div>
+        <div class="win-titlebar-btns">
+            <div class="win-btn" style="font-weight:bold;">✕</div>
+        </div>
+    </div>
+    <div class="win-content">
+        <div class="modal-body">
+            <span style="font-size:32px;line-height:1;">🤡</span>
+            <div class="modal-text">
+                <strong style="font-size:13px;color:#cc0000;display:block;margin-bottom:6px;">APRIL FOOL! 😂</strong>
+                <span id="foolGiftText">You thought you'd get that gift?</span><br>
+                The real gift is... my everlasting friendship!&nbsp;💖✨<br>
+                <span style="color:#000080;font-size:10px;">🌸 Happy April 1st! 🌸</span>
+            </div>
+        </div>
+        <div class="win-inset" style="margin:0 8px 8px; padding:4px 8px;">
+            <div id="foolProgress" class="win-progress-wrap">
+                <div class="win-progress-bar" id="foolProgressBar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== I LOVE YOU WINDOW ========== -->
+<div id="loveWindow" class="win-window">
+    <div class="win-titlebar" style="background:linear-gradient(to right,#880044,#cc1155);">
+        <div class="win-titlebar-title">
+            <span class="win-titlebar-icon">❤️</span>
+            <span>Message from the Heart</span>
+        </div>
+        <div class="win-titlebar-btns">
+            <div class="win-btn" title="Minimize">_</div>
+            <div class="win-btn" title="Maximize">□</div>
+            <div class="win-btn" style="font-weight:bold;">✕</div>
+        </div>
+    </div>
+    <div class="love-content">
+        <span class="love-heart">❤️💖❤️</span>
+        <div class="love-title">I LOVE YOU!</div>
+        <hr class="win-sep">
+        <div class="love-sub">
+            You mean the world<br>
+            ✨🌸 FRIENDSHIP 🌸✨<br>
+            Forever and always 💕
+        </div>
+    </div>
+    <div class="win-statusbar">
+        <div class="win-statusbar-cell">💕 Always &amp; Forever</div>
+    </div>
+</div>
+
+<!-- Nav Blocker -->
 <div id="navBlocker" class="nav-blocker"></div>
 
+<!-- Stickers (floating in desktop) -->
+<img id="leftSticker" src="images.png" alt="cute sticker" style="position:absolute;bottom:40px;left:8px;width:80px;opacity:0;transition:opacity 1s;z-index:25;transform:rotate(-8deg);" onerror="this.style.display='none'">
+<img id="rightSticker" src="images1.png" alt="cute sticker" style="position:absolute;top:40px;right:8px;width:120px;opacity:0;transition:opacity 1s;z-index:25;animation:win2kWiggle 2s ease-in-out infinite;" onerror="this.style.display='none'">
+
+<style>
+@keyframes win2kWiggle {
+    0%,100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(4deg) scale(1.05); }
+    75% { transform: rotate(-4deg) scale(1.05); }
+}
+</style>
+
 <!-- Audio elements -->
-<audio id="audio1" preload="auto">
-    <source src="alarm.mp3" type="audio/mpeg">
-</audio>
-<audio id="audio2" preload="auto">
-    <source src="mixkit-small-man-crowd-laughing-423.wav" type="audio/wav">
-</audio>
-<audio id="audio3" preload="auto">
-    <source src="Rayvanny_-_I_love_you_(Official_Music_Video)_SMS_SKIZA_8548826_to_811(128k) (1)_054843.m4a" type="audio/mpeg">
-</audio>
+<audio id="audio1" preload="auto"><source src="alarm.mp3" type="audio/mpeg"></audio>
+<audio id="audio2" preload="auto"><source src="mixkit-small-man-crowd-laughing-423.wav" type="audio/wav"></audio>
+<audio id="audio3" preload="auto"><source src="Rayvanny_-_I_love_you_(Official_Music_Video)_SMS_SKIZA_8548826_to_811(128k) (1)_054843.m4a" type="audio/mpeg"></audio>
+
+<!-- Taskbar -->
+<div class="taskbar" id="taskbar">
+    <button class="start-btn">
+        <div class="start-logo"></div>
+        <span>Start</span>
+    </button>
+    <div class="taskbar-divider"></div>
+    <div class="taskbar-task" id="taskbarTask">🌸 Surprise.exe</div>
+    <div class="taskbar-right">
+        <div class="tray-clock" id="trayTime">--:--</div>
+    </div>
+</div>
 
 <script>
     const girlName = "BRIDGET";
-    
-    const nameSpan = document.getElementById("dynamicName");
-    const btn = document.getElementById("magicButton");
-    const containerDiv = document.getElementById("btnContainer");
-    const bgOverlay = document.getElementById("bgOverlay");
-    const msgCard = document.getElementById("messageBox");
-    const readyBtn = document.getElementById("readyButton");
-    const leftSticker = document.getElementById("leftSticker");
-    const rightSticker = document.getElementById("rightSticker");
-    const audio1 = document.getElementById("audio1");
-    const audio2 = document.getElementById("audio2");
-    const audio3 = document.getElementById("audio3");
-    const giftSection = document.getElementById("giftSelection");
-    const navBlocker = document.getElementById("navBlocker");
 
-    let currentPlayingAudio = null;
-    let giftOpened = false;
-    let isLoveMessageShowing = false;
+    // ===== DOM REFS =====
+    const nameSpan       = document.getElementById("dynamicName");
+    const btn            = document.getElementById("magicButton");
+    const launcherWin    = document.getElementById("launcherWindow");
+    const messageWin     = document.getElementById("messageWindow");
+    const giftWin        = document.getElementById("giftWindow");
+    const readyBtn       = document.getElementById("readyButton");
+    const leftSticker    = document.getElementById("leftSticker");
+    const rightSticker   = document.getElementById("rightSticker");
+    const audio1         = document.getElementById("audio1");
+    const audio2         = document.getElementById("audio2");
+    const audio3         = document.getElementById("audio3");
+    const navBlocker     = document.getElementById("navBlocker");
+    const foolWindow     = document.getElementById("foolWindow");
+    const loveWindow     = document.getElementById("loveWindow");
+    const modalOverlay   = document.getElementById("modalOverlay");
+    const confirmBtn     = document.getElementById("confirmBtn");
+    const cancelBtn      = document.getElementById("cancelBtn");
+    const bgOverlay      = document.getElementById("bgOverlay");
+    const giftItems      = document.querySelectorAll(".gift-item");
+    const giftOkBtn      = document.getElementById("giftOkBtn");
+    const giftCancelBtn  = document.getElementById("giftCancelBtn");
+    const statusCell     = document.querySelector("#giftWindow .win-statusbar .win-statusbar-cell:last-child");
+
+    let currentAudio     = null;
+    let giftOpened       = false;
+    let isLoveMsgShowing = false;
+    let selectedGiftEl   = null;
 
     if (nameSpan) nameSpan.innerText = girlName;
 
-    // Function to stop any currently playing audio
+    // ===== CLOCK =====
+    function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        document.getElementById("trayTime").textContent = h + ":" + m;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    // ===== AUDIO =====
     function stopAllAudio() {
-        if (currentPlayingAudio) {
-            currentPlayingAudio.pause();
-            currentPlayingAudio.currentTime = 0;
-            currentPlayingAudio = null;
-        }
-        [audio1, audio2, audio3].forEach(audio => {
-            if (!audio.paused) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        });
+        [audio1, audio2, audio3].forEach(a => { a.pause(); a.currentTime = 0; });
+        currentAudio = null;
     }
 
-    // Function to play audio
-    function playAudio(audioElement, onEndCallback = null) {
-        if (currentPlayingAudio === audioElement && !audioElement.paused) return;
-        
-        if (currentPlayingAudio && currentPlayingAudio !== audioElement) {
-            currentPlayingAudio.pause();
-            currentPlayingAudio.currentTime = 0;
-        }
-        
-        if (audioElement) {
-            audioElement.currentTime = 0;
-            audioElement.onended = onEndCallback;
-            audioElement.play().catch(e => console.log("Audio play error:", e));
-            currentPlayingAudio = audioElement;
-        }
+    function playAudio(audio, onEnd) {
+        if (currentAudio && currentAudio !== audio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+        audio.currentTime = 0;
+        audio.onended = onEnd || null;
+        audio.play().catch(() => {});
+        currentAudio = audio;
     }
 
-    function randomRange(min, max) {
-        return min + Math.random() * (max - min);
-    }
+    // ===== HELPERS =====
+    function randomRange(a, b) { return a + Math.random() * (b - a); }
 
-    function getBalloonColor() {
-        const palette = ["#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E0BBE4", "#FEC8D8", "#FFC2D9"];
-        return palette[Math.floor(Math.random() * palette.length)];
-    }
-
-    function createFlowerExplosion(targetElement) {
-        if (!targetElement) return;
-        const rect = targetElement.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        for (let i = 0; i < 32; i++) {
-            const petal = document.createElement("div");
-            petal.classList.add("flower-particle");
-            const angle = Math.random() * Math.PI * 2;
-            const radius = randomRange(15, 90);
-            petal.style.left = (centerX + Math.cos(angle) * radius) + "px";
-            petal.style.top = (centerY + Math.sin(angle) * radius) + "px";
-            petal.style.width = randomRange(8, 18) + "px";
-            petal.style.height = petal.style.width;
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 1300);
-        }
-    }
-
-    function createBalloons(count = 28) {
+    function createBalloons(count) {
+        const colors = ["#FFB3BA","#FFDFBA","#FFFFBA","#BAFFC9","#BAE1FF","#E0BBE4"];
         for (let i = 0; i < count; i++) {
             setTimeout(() => {
-                const balloon = document.createElement("div");
-                balloon.classList.add("balloon");
-                balloon.style.left = Math.random() * 90 + 5 + "vw";
-                balloon.style.background = getBalloonColor();
-                const size = 34 + Math.random() * 22;
-                balloon.style.width = size + "px";
-                balloon.style.height = (size * 1.4) + "px";
-                balloon.style.animationDuration = randomRange(5.5, 9) + "s";
-                document.body.appendChild(balloon);
-                setTimeout(() => balloon.remove(), 9500);
+                const b = document.createElement("div");
+                b.className = "balloon";
+                b.style.left = Math.random() * 90 + 5 + "vw";
+                b.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const s = 24 + Math.random() * 14;
+                b.style.width = s + "px";
+                b.style.height = (s * 1.4) + "px";
+                b.style.animationDuration = randomRange(5.5, 9) + "s";
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 9500);
             }, i * 70);
         }
     }
 
-    function createFloatingPetals() {
-        const interval = setInterval(() => {
-            const petals = ["🌸", "🌼", "🌷", "💮", "✨", "🎀", "💖", "🌺"];
-            const petalDiv = document.createElement("div");
-            petalDiv.className = "floating-petal";
-            petalDiv.innerText = petals[Math.floor(Math.random() * petals.length)];
-            petalDiv.style.left = Math.random() * 100 + "%";
-            petalDiv.style.fontSize = randomRange(18, 34) + "px";
-            petalDiv.style.bottom = "-20px";
-            document.body.appendChild(petalDiv);
-            setTimeout(() => petalDiv.remove(), 5000);
-        }, 450);
-        setTimeout(() => clearInterval(interval), 5200);
-    }
-
-    // April Fool's Surprise Message (plays audio2)
-    function showAprilFoolsSurprise(chosenGift, onComplete) {
-        const foolDiv = document.createElement('div');
-        foolDiv.className = 'fool-message';
-        foolDiv.innerHTML = `
-            <div>🤡 APRIL FOOL! 🤡</div>
-            <div>You thought you'd get ${chosenGift}? 😂</div>
-            <div>The real gift is... my everlasting friendship! 💖✨</div>
-            <div>🌸 Happy April 1st! 🌸</div>
-        `;
-        document.body.appendChild(foolDiv);
-        setTimeout(() => foolDiv.classList.add('show'), 30);
-        
-        // Play audio2
-        playAudio(audio2);
-        
-        // Confetti explosion
-        for (let i = 0; i < 70; i++) {
-            setTimeout(() => {
-                const conf = document.createElement('div');
-                conf.style.position = 'absolute';
-                conf.style.width = randomRange(6, 18) + 'px';
-                conf.style.height = conf.style.width;
-                conf.style.background = `hsl(${Math.random() * 60 + 300}, 80%, 65%)`;
-                conf.style.borderRadius = '50%';
-                conf.style.left = Math.random() * 100 + '%';
-                conf.style.top = Math.random() * 100 + '%';
-                conf.style.zIndex = '999';
-                conf.style.pointerEvents = 'none';
-                conf.style.animation = 'bloomFloat 1s ease-out forwards';
-                document.body.appendChild(conf);
-                setTimeout(() => conf.remove(), 1000);
-            }, i * 25);
-        }
-        
-        // Show for 4 seconds, then call callback
-        setTimeout(() => {
-            foolDiv.style.opacity = '0';
-            setTimeout(() => {
-                foolDiv.remove();
-                if (onComplete) onComplete();
-            }, 500);
-        }, 4200);
-    }
-
-    // I Love You Message - THIS ACTIVATES NAVIGATION BLOCKER
-    function showLoveMessage() {
-        isLoveMessageShowing = true;
-        
-        // ACTIVATE NAVIGATION BLOCKER - prevents any clicks outside the love message
-        navBlocker.classList.add('active');
-        
-        const loveDiv = document.createElement('div');
-        loveDiv.className = 'love-message';
-        loveDiv.innerHTML = `
-            <div class="heart-icon">❤️💖❤️</div>
-            <h1>I LOVE YOU!</h1>
-            <p>You mean the world<br>✨🌸FRIENDSHIP🌸✨</p>
-            <p>Forever and always 💕</p>
-        `;
-        document.body.appendChild(loveDiv);
-        setTimeout(() => loveDiv.classList.add('show'), 50);
-        
-        // Play audio3 - when it ends, remove navigation blocker
-        playAudio(audio3, () => {
-            // Audio finished - remove blocker after a short delay
-            setTimeout(() => {
-                navBlocker.classList.remove('active');
-                isLoveMessageShowing = false;
-            }, 500);
-        });
-        
-        // Create floating hearts
-        for (let i = 0; i < 300; i++) {
-            setTimeout(() => {
-                const heart = document.createElement('div');
-                heart.innerText = '❤️', '💖';
-                heart.style.position = 'absolute';
-                heart.style.fontSize = randomRange(20, 50) + 'px';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.bottom = '-30px';
-                heart.style.zIndex = '260';
-                heart.style.pointerEvents = 'none';
-                heart.style.animation = `floatUp ${randomRange(4, 8)}s linear forwards`;
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 8000);
-            }, i * 100);
-        }
-    }
-
-    // Show confirmation modal for gift selection
-    function showConfirmationModal(giftType, giftLabel, giftImgSrc) {
-        let modal = document.querySelector('.modal-overlay');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-box">
-                    <h3>🎁 ARE YOU SURE? 🎁</h3>
-                    <img id="modalGiftImg" class="modal-gift-preview" src="" alt="gift">
-                    <p id="modalGiftText" style="color:#FFDDB3; font-size:1rem;">You are about to select this gift!</p>
-                    <div class="modal-buttons">
-                        <button class="modal-btn confirm-btn">YES, OPEN IT! 😍</button>
-                        <button class="modal-btn cancel-btn">WAIT, NO! 😅</button>
-                    </div>
-                </div>
+    function pixelBurst(target) {
+        const rect = target.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement("div");
+            p.className = "flower-particle";
+            const size = Math.floor(randomRange(4, 10));
+            p.style.cssText = `
+                width:${size}px; height:${size}px;
+                background:${["#ff0000","#00ff00","#0000ff","#ffff00","#ff00ff","#00ffff"][i%6]};
+                left:${cx + randomRange(-60, 60)}px;
+                top:${cy + randomRange(-60, 60)}px;
             `;
-            document.body.appendChild(modal);
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1000);
         }
-        
-        const modalImg = document.getElementById('modalGiftImg');
-        const modalText = document.getElementById('modalGiftText');
-        modalImg.src = giftImgSrc;
-        modalText.innerHTML = `Are you sure you want the <strong style="color:#FFAA66">${giftLabel}</strong>?<br>Think twice... 😈`;
-        
-        modal.classList.add('show');
-        
-        const confirmBtn = modal.querySelector('.confirm-btn');
-        const cancelBtn = modal.querySelector('.cancel-btn');
-        
-        const cleanup = () => {
-            modal.classList.remove('show');
-            confirmBtn.removeEventListener('click', onConfirm);
-            cancelBtn.removeEventListener('click', onCancel);
-        };
-        
-        const onConfirm = () => {
-            cleanup();
-            giftSection.classList.remove('active');
-            
-            // Show April Fool's surprise, then love message
-            showAprilFoolsSurprise(giftLabel, () => {
-                showLoveMessage();
-            });
-        };
-        
-        const onCancel = () => {
-            cleanup();
-        };
-        
-        confirmBtn.addEventListener('click', onConfirm);
-        cancelBtn.addEventListener('click', onCancel);
     }
-    
-    function initGiftListeners() {
-        const giftCardsElements = document.querySelectorAll('.gift-card');
-        giftCardsElements.forEach(card => {
-            card.removeEventListener('click', card._listener);
-            const handler = (e) => {
-                e.stopPropagation();
-                const giftType = card.getAttribute('data-gift');
-                const giftLabelElem = card.querySelector('.gift-label');
-                const giftImgElem = card.querySelector('.gift-img');
-                let giftLabel = giftLabelElem ? giftLabelElem.innerText : "Special Gift";
-                let giftImgSrc = giftImgElem ? giftImgElem.src : "";
-                showConfirmationModal(giftType, giftLabel, giftImgSrc);
-            };
-            card._listener = handler;
-            card.addEventListener('click', handler);
+
+    // ===== GIFT SELECTION =====
+    giftItems.forEach(item => {
+        item.addEventListener("click", () => {
+            giftItems.forEach(g => g.style.background = "");
+            giftItems.forEach(g => g.querySelector(".gift-item-label").style.color = "");
+            item.style.background = "#000080";
+            item.querySelector(".gift-item-label").style.color = "#fff";
+            selectedGiftEl = item;
+            if (statusCell) statusCell.textContent = "1 item(s) selected";
         });
+    });
+
+    giftOkBtn.addEventListener("click", () => {
+        if (!selectedGiftEl) {
+            // Simple Win2k msgbox style feedback
+            const lbl = document.createElement("div");
+            lbl.style.cssText = "position:fixed;top:44%;left:50%;transform:translate(-50%,-50%);background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:12px 20px;z-index:999;font-family:Tahoma,sans-serif;font-size:11px;box-shadow:2px 2px #000;";
+            lbl.innerHTML = `<div style="display:flex;gap:10px;align-items:center;"><span style="font-size:20px;">ℹ️</span> Please select a gift first.</div><div style="text-align:center;margin-top:10px;"><button onclick="this.parentElement.parentElement.remove()" style="font-family:Tahoma,sans-serif;font-size:11px;padding:3px 14px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;cursor:pointer;">OK</button></div>`;
+            document.body.appendChild(lbl);
+            return;
+        }
+        const label = selectedGiftEl.querySelector(".gift-item-label").innerText;
+        showConfirmModal(label);
+    });
+
+    giftCancelBtn.addEventListener("click", () => {
+        giftWin.style.display = "none";
+    });
+
+    function showConfirmModal(label) {
+        document.getElementById("modalGiftText").innerHTML = `Are you sure you want <strong>${label}</strong>?`;
+        modalOverlay.classList.add("show");
     }
-    
-    // Ready button click handler
-    function openGiftSelection() {
-        if (giftOpened) return;
-        giftOpened = true;
-        
-        msgCard.classList.add('hidden');
-        msgCard.classList.remove('visible');
-        
-        setTimeout(() => {
-            giftSection.classList.add('active');
-            initGiftListeners();
-            
-            const title = document.querySelector('.gift-title');
-            if(title) {
-                title.style.animation = 'none';
-                title.offsetHeight;
-                title.style.animation = 'gentleWobble 0.5s ease';
+
+    confirmBtn.addEventListener("click", () => {
+        modalOverlay.classList.remove("show");
+        giftWin.style.display = "none";
+        showAprilFool(selectedGiftEl.querySelector(".gift-item-label").innerText, () => showLoveMsg());
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        modalOverlay.classList.remove("show");
+    });
+
+    // ===== APRIL FOOL =====
+    function showAprilFool(giftLabel, onComplete) {
+        document.getElementById("foolGiftText").innerHTML = `You thought you&apos;d get <strong>${giftLabel}</strong>? 😂`;
+        foolWindow.style.display = "block";
+        playAudio(audio2);
+
+        let prog = 0;
+        const bar = document.getElementById("foolProgressBar");
+        const blocks = 20;
+        const iv = setInterval(() => {
+            prog += 5;
+            const filled = Math.floor(blocks * prog / 100);
+            bar.innerHTML = Array.from({length: filled}, () => `<span class="win-progress-block"></span>`).join("");
+            bar.style.width = prog + "%";
+            if (prog >= 100) {
+                clearInterval(iv);
+                setTimeout(() => {
+                    foolWindow.style.display = "none";
+                    if (onComplete) onComplete();
+                }, 400);
             }
-        }, 300);
+        }, 190);
+
+        createBalloons(20);
     }
-    
-    // Main animation sequence
-    function startSurprise() {
+
+    // ===== LOVE MESSAGE =====
+    function showLoveMsg() {
+        isLoveMsgShowing = true;
+        navBlocker.classList.add("active");
+        loveWindow.style.display = "block";
+        playAudio(audio3, () => {
+            setTimeout(() => {
+                navBlocker.classList.remove("active");
+                isLoveMsgShowing = false;
+            }, 500);
+        });
+
+        // Floating hearts
+        for (let i = 0; i < 200; i++) {
+            setTimeout(() => {
+                const h = document.createElement("div");
+                h.innerText = ["❤️","💖","💕","💗"][i%4];
+                h.style.cssText = `position:absolute;font-size:${randomRange(14,32)}px;left:${Math.random()*100}%;bottom:-30px;z-index:260;pointer-events:none;animation:floatUp ${randomRange(4,8)}s linear forwards;`;
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 8000);
+            }, i * 120);
+        }
+    }
+
+    // ===== MAIN FLOW =====
+    btn.addEventListener("click", () => {
         if (btn.disabled) return;
         btn.disabled = true;
-        
-        // Play audio1
+
         playAudio(audio1);
-        
-        createFlowerExplosion(btn);
-        
+        pixelBurst(btn);
+
         setTimeout(() => {
-            containerDiv.classList.add("fade-out");
-            setTimeout(() => containerDiv.style.display = "none", 400);
-        }, 280);
-        
+            launcherWin.style.display = "none";
+        }, 400);
+
         setTimeout(() => {
-            if (bgOverlay) {
-                bgOverlay.classList.add('active');
-            }
-            createBalloons(30);
-            createFloatingPetals();
-        }, 1000);
-        
-        // Show message card
+            bgOverlay.classList.add("active");
+            createBalloons(25);
+        }, 900);
+
         setTimeout(() => {
-            msgCard.classList.add('visible');
-            msgCard.classList.remove('hidden');
-        }, 6200);
-        
-        // Show stickers
-        setTimeout(() => {
-            leftSticker.classList.add('visible');
-            rightSticker.classList.add('visible');
-        }, 6200);
-        
-        readyBtn.addEventListener('click', openGiftSelection);
-    }
-    
-    btn.addEventListener("click", startSurprise);
-    
-    if (bgOverlay) {
-        bgOverlay.style.backgroundImage = "url('b80c8a4b2fff4744b3460b7ceadb61cc.jpg')";
-        bgOverlay.style.backgroundSize = "cover";
-        bgOverlay.style.backgroundPosition = "center";
-    }
-    
-    // Prevent back navigation only when love message is showing
-    window.addEventListener('popstate', function(e) {
-        if (isLoveMessageShowing) {
-            history.pushState(null, null, location.href);
-            e.preventDefault();
-        }
+            messageWin.style.display = "block";
+            leftSticker.style.opacity = "1";
+            rightSticker.style.opacity = "1";
+        }, 5500);
+    });
+
+    readyBtn.addEventListener("click", () => {
+        if (giftOpened) return;
+        giftOpened = true;
+        messageWin.style.display = "none";
+        giftWin.style.display = "block";
+    });
+
+    // Back nav block
+    window.addEventListener("popstate", e => {
+        if (isLoveMsgShowing) { history.pushState(null, null, location.href); e.preventDefault(); }
     });
     history.pushState(null, null, location.href);
-    
-    // Image fallbacks
-    document.querySelectorAll('.gift-img').forEach(img => {
-        img.onerror = function() {
-            this.src = "https://i.imgur.com/5qDqY8f.png";
-        };
-    });
-    
-    const leftStick = document.getElementById('leftSticker');
-    const rightStick = document.getElementById('rightSticker');
-    if (leftStick) leftStick.onerror = function() { this.src = "https://i.imgur.com/OdL0XPt.png"; };
-    if (rightStick) rightStick.onerror = function() { this.src = "https://i.imgur.com/OdL0XPt.png"; };
-    
-    [audio1, audio2, audio3].forEach(audio => audio.load());
-    
-    // Ensure stickers are visible with correct styling
-    console.log("Stickers loaded:", leftSticker, rightSticker);
+
+    [audio1, audio2, audio3].forEach(a => a.load());
 </script>
 </body>
 </html>
